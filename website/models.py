@@ -30,7 +30,7 @@ class InboxFile(models.Model):
     may be multiple files.
     """
 
-    inbox_entry = models.ForeignKey(Inbox, verbose_name=_("Inbox entry"))
+    inbox_entry = models.ForeignKey(Inbox, on_delete=models.CASCADE, verbose_name=_("Inbox entry"))
     file = models.FileField(upload_to="inbox_files", verbose_name=_("File"))
 
     class Meta:
@@ -81,7 +81,7 @@ class ProjectLog(models.Model):
     anything that might be important.
     """
 
-    project = models.ForeignKey(Project, verbose_name=_("Log's project"))
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name=_("Log's project"))
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=_("Timestamp"))
     text = models.TextField(verbose_name=_("Log text"))
 
@@ -112,7 +112,7 @@ class Task(models.Model):
     """
 
     name = models.CharField(max_length=150, verbose_name=_("Name"))
-    project = models.ForeignKey(Project, verbose_name=_("Parent project"))
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name=_("Parent project"))
     status = models.SmallIntegerField(choices=TaskStatus.choices, default=TaskStatus.TODO, verbose_name=_("Status"))
     deadline = models.DateTimeField(null=True, blank=True, verbose_name=_("Deadline"))
     archived = models.BooleanField(default=False, verbose_name=_("Is archived"))
