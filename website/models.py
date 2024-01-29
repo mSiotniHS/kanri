@@ -47,7 +47,10 @@ class Space(models.Model):
 
     name = models.CharField(max_length=50, verbose_name=_("Name"))
 
-    class Meta(models.Model):
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
         verbose_name = _("Space")
         verbose_name_plural = _("Spaces")
 
