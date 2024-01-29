@@ -16,6 +16,9 @@ class Inbox(models.Model):
 
     text = models.TextField(verbose_name=_("Text content"))
 
+    def __str__(self) -> str:
+        return self.text[:20]
+
     class Meta:
         verbose_name = _("Inbox entry")
         verbose_name_plural = _("Inbox entries")
@@ -59,6 +62,9 @@ class Project(models.Model):
     description = models.TextField(verbose_name=_("Description"))
     archived = models.BooleanField(default=False, verbose_name=_("Is archived"))
 
+    def __str__(self) -> str:
+        return self.name
+
     class Meta:
         verbose_name = _("Project")
         verbose_name_plural = _("Projects")
@@ -75,6 +81,9 @@ class ProjectLog(models.Model):
     project = models.ForeignKey(Project, verbose_name=_("Log's project"))
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=_("Timestamp"))
     text = models.TextField(verbose_name=_("Log text"))
+
+    def __str__(self) -> str:
+        return f'{self.project} | {self.timestamp} | {self.text[:20]}'
 
     class Meta:
         verbose_name = _("Project log")
@@ -104,6 +113,9 @@ class Task(models.Model):
     status = models.SmallIntegerField(choices=TaskStatus.choices, default=TaskStatus.TODO, verbose_name=_("Status"))
     deadline = models.DateTimeField(null=True, blank=True, verbose_name=_("Deadline"))
     archived = models.BooleanField(default=False, verbose_name=_("Is archived"))
+
+    def __str__(self) -> str:
+        return f'({self.project}) {self.name} | {TaskStatus(self.status).label}'
 
     class Meta:
         verbose_name = _("Task")
