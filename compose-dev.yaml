@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build: ./
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - 8000:8000
+  db:
+    image: postgres:15
+    volumes:
+      - .dev/postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=kanri
+      - POSTGRES_PASSWORD=167094
+      - POSTGRES_DB=kanri
+
+volumes:
+  .dev/postgres_data:
