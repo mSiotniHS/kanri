@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load component_tags %}
+{% load tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Kanri{% endblock %}</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    {% tailwind_css %}
+    {% component_css_dependencies %}
+</head>
+<body class="w-dvw h-dvh {% block body_classes %}{% endblock %}">
+{% block body %}
+{% endblock %}
+{% component_js_dependencies %}
+</body>
+</html>
