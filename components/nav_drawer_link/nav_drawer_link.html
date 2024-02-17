@@ -1,0 +1,24 @@
+{% load component_tags %}
+
+<a
+  class="
+    px-6 py-[1.125rem]
+    flex flex-row justify-between
+    rounded-full
+    text-sm
+
+    {% if current %}
+      bg-secondary-container
+      text-on-secondary-container font-semibold
+    {% else %}
+      text-on-surface-variant font-medium
+    {% endif %}
+    "
+  href="{% slot "route" %}{% endslot %}"
+>
+    <span>{% slot "label" default %}{% endslot %}</span>
+
+    {% if_filled "count" %}
+    <span>{% slot "count" %}{% endslot %}</span>
+    {% endif_filled %}
+</a>
