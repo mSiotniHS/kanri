@@ -1,0 +1,42 @@
+{% extends "website/base.html" %}
+
+{% load i18n %}
+{% load component_tags %}
+
+{% block body_classes %}grid grid-cols-[320px_1fr]{% endblock body_classes %}
+
+{% block body %}
+
+<nav class="p-3 bg-surface-container-low">
+    <h1 class="title-small py-[1.125rem] pl-4 pr-2 text-on-surface-variant">{{ current_space.name }}</h1>
+    <ul>{% for base_link in base_links %}
+        <li>
+            {% component_block "nav_drawer_link" current=base_link.current %}
+                {% fill "route" %}{{ base_link.route }}{% endfill %}
+                {% fill "label" %}{{ base_link.label }}{% endfill %}
+                {% fill "count" %}
+                    {% if base_link.count %}{{ base_link.count }}{% endif %}
+                {% endfill %}
+            {% endcomponent_block %}
+        </li>
+    {% endfor %}</ul>
+    
+    <h2
+      class="
+        title-small text-on-surface-variant
+        py-[1.125rem] pl-4 pr-2
+        border-t-[1px] border-solid border-outline-variant">Projects</h2>
+    <ul>{% for project in nav_projects %}
+        {% component_block "nav_drawer_link" %}
+            {% fill "route" %}{% url 'website-project-index' space_id=current_space.id project_id=project.id %}{% endfill %}
+            {% fill "label" %}{{ project.name }}{% endfill %}
+        {% endcomponent_block %}
+    {% endfor %}</ul>
+</nav>
+
+<main class="{% block content_classes %}{% endblock content_classes %}">
+    {% block content %}
+    {% endblock %}
+</main>
+
+{% endblock %}
