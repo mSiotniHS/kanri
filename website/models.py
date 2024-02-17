@@ -15,6 +15,8 @@ class Inbox(models.Model):
     """
 
     text = models.TextField(verbose_name=_("Text content"))
+    space = models.ForeignKey('Space', null=True, blank=True, verbose_name=_("Related space"), on_delete=models.SET_NULL)
+    someday = models.BooleanField(default=False, verbose_name=_("Until someday"))
 
     def __str__(self) -> str:
         return self.text[:20]
@@ -63,6 +65,7 @@ class Project(models.Model):
 
     name = models.CharField(max_length=150, verbose_name=_("Name"))
     description = models.TextField(verbose_name=_("Description"))
+    space = models.ForeignKey(Space, verbose_name=_("Related space"), on_delete=models.CASCADE)
     archived = models.BooleanField(default=False, verbose_name=_("Is archived"))
 
     def __str__(self) -> str:
@@ -115,7 +118,6 @@ class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name=_("Parent project"))
     status = models.SmallIntegerField(choices=TaskStatus.choices, default=TaskStatus.TODO, verbose_name=_("Status"))
     deadline = models.DateTimeField(null=True, blank=True, verbose_name=_("Deadline"))
-    archived = models.BooleanField(default=False, verbose_name=_("Is archived"))
 
     def __str__(self) -> str:
         return f'({self.project}) {self.name} | {TaskStatus(self.status).label}'
@@ -123,3 +125,20 @@ class Task(models.Model):
     class Meta:
         verbose_name = _("Task")
         verbose_name_plural = _("Tasks")
+
+
+# class Tag(models.Model):
+#     """
+#     Tag is a some category, by which projects may be grouped.
+#     For example, some projects can have a "home" tag --- that
+#     would mean that the project is somehow connected to a home.
+#     """
+
+#     label = models.CharField(max_length=100, verbose_name=_("Label"))
+#     description = models.TextField(verbose_name=_("Description"))
+
+#     projects = models.ManyToManyField(Project)
+
+#     class Meta:
+#         verbose_name = _("Tag")
+#         verbose_name_plural = _("Tags")
