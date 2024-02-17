@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 {% load component_tags %}
 {% load tailwind_tags %}
 
@@ -17,5 +18,6 @@
 {% block body %}
 {% endblock %}
 {% component_js_dependencies %}
+<script src="{% static 'website/js/htmx.min.js' %}" defer></script>
 </body>
 </html>
