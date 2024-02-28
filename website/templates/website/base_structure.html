@@ -8,7 +8,9 @@
 {% block body %}
 
 <nav class="p-3 bg-surface-container-low">
-    <h1 class="title-small py-[1.125rem] pl-4 pr-2 text-on-surface-variant">{{ current_space.name }}</h1>
+    <a href="{% url 'website-space-list' %}">
+        <h1 class="title-small py-[1.125rem] pl-4 pr-2 text-on-surface-variant">{{ current_space.name }}</h1>
+    </a>
     <ul>{% for base_link in base_links %}
         <li>
             {% component_block "nav_drawer_link" current=base_link.current %}
