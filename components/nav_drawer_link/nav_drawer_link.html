@@ -2,17 +2,23 @@
 
 <a
   class="
-    px-6 py-[1.125rem]
-    flex flex-row justify-between
-    rounded-full
-    text-sm
-
+    [--opacity:0%]
     {% if current %}
-      bg-secondary-container
+      [--bg-color:rgb(var(--md-sys-color-secondary-container))]
       text-on-secondary-container font-semibold
     {% else %}
+      [--bg-color:transparent]
       text-on-surface-variant font-medium
     {% endif %}
+
+    px-6 py-[1.125rem] rounded-full
+    flex flex-row justify-between
+    text-sm
+    transition-material
+
+    bg-[color-mix(in_srgb,var(--bg-color),_rgb(var(--md-sys-color-on-surface))_var(--opacity))]
+    hover:[--opacity:8%]
+    active:[--opacity:12%]
     "
   href="{% slot "route" %}{% endslot %}"
 >
