@@ -34,9 +34,17 @@
     {% endfor %}</ul>
 </nav>
 
-<main class="{% block content_classes %}{% endblock content_classes %}">
-    {% block content %}
-    {% endblock %}
+<main class="{% block content_classes %}
+  flex justify-center
+  w-full h-dvh px-8
+  bg-surface-container
+{% endblock content_classes %}">
+    <div class="{% block content_wrapper_class %}
+      max-w-[900px] w-full py-4
+    {% endblock content_wrapper_class %}">
+        {% block content %}
+        {% endblock %}
+    </div>
 </main>
 
 {% endblock %}
