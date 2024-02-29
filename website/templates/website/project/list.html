@@ -1,0 +1,11 @@
+{% extends "website/base_structure.html" %}
+
+{% block content %}
+
+<ul>{% for project in projects %}
+  <li>
+    {{ project.name }}
+  </li>
+{% endfor %}</ul>
+
+{% endblock content %}
