@@ -14,7 +14,7 @@
     {% tailwind_css %}
     {% component_css_dependencies %}
 </head>
-<body class="w-dvw h-dvh {% block body_classes %}{% endblock %}">
+<body class="w-dvw h-dvh {% block body_classes %}{% endblock %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 {% block body %}
 {% endblock %}
 {% component_js_dependencies %}
