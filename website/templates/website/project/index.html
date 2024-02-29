@@ -1,0 +1,50 @@
+{% extends "website/base_structure.html" %}
+
+{% load i18n %}
+{% load component_tags %}
+
+
+{% block content %}
+
+<div class="grid grid-cols-[1fr_260px] [grid-template-areas:'title_blank'_'tasks_logs'] gap-6">
+    <div class="[grid-area:title] flex flex-col gap-2">
+        <h1 class="text-5xl text-secondary">{{ project.name }}</h1>
+        <p class="text-sm text-on-surface-variant">{{ project.description }}</p>
+    </div>
+
+    <ul class="[grid-area:tasks] flex flex-col gap-2">{% for task in tasks %}
+        <li class="bg-primary-container px-4 py-2 rounded-xl">
+            {{ task.name }}
+        </li>
+    {% endfor %}</ul>
+
+    <aside class="[grid-area:logs] flex flex-col gap-2.5">
+        <div class="flex flex-row gap-2 p-3 bg-tertiary-container rounded-xl">
+            <textarea name="log-text" placeholder="{% translate "Write changelog here..." %}"
+                class="
+                    w-full h-full overflow-hidden
+                    p-0 border-none outline-none bg-[transparent]
+                    text-on-tertiary-container text-sm
+                    resize-none
+                    placeholder:text-on-tertiary-container
+                "
+                x-data="{ resize: () => { $el.style.height = '24px'; $el.style.height = $el.scrollHeight + 'px' } }"
+                x-init="resize()" @input="resize()"
+            ></textarea>
+            <button
+                hx-post="{% url 'website-project-create-log' space.id project.id %}"
+                hx-target="#log-list"
+                hx-swap="afterbegin"
+                hx-trigger="click"
+                hx-include="[name='log-text']"
+            >
+                Submit
+            </button>
+        </div>
+        <ul id="log-list" class="flex flex-col gap-2.5">{% for log in logs %}
+            {% component_block "log_entry" log=log %}{% endcomponent_block %}
+        {% endfor %}</ul>
+    </aside>
+</div>
+
+{% endblock content %}
