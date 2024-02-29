@@ -1,0 +1,6 @@
+<li class="flex flex-col gap-2 p-3 bg-tertiary-container rounded-xl text-on-tertiary-container">
+    <time datetime={{ log.timestamp }} class="font-medium italic text-xs">
+        {{ log.timestamp|date:"d.m.Y H:i" }}
+    </time>
+    <p class="text-sm">{{ log.text }}</p>
+</li>
