@@ -1,0 +1,13 @@
+{% load i18n %}
+{% load component_tags %}
+
+{% if log %}
+    {% component_block "log_entry" log=log %}{% endcomponent_block %}
+{% else %}
+    <ul
+        class="bg-error-container text-on-error-container p-3 rounded-xl text-sm"
+        x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+    >
+        {% translate "An error occured while trying to create a log" %}
+    </ul>
+{% endif %}
